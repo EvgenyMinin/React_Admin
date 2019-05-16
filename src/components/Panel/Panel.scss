@@ -1,0 +1,30 @@
+$panelColor: #313131;
+$panelTextColor: #9d9d9d;
+
+.panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    background-color: $panelColor;
+    color: $panelTextColor;
+    border-radius: 5px;
+    padding: 12px 20px;
+    margin-top: 10px;
+    &__info {
+        display: flex;
+        margin-left: 10px;
+        & p {
+            margin-bottom: 0;
+            &:first-child {
+                margin-right: 20px;
+            }
+        }
+    }
+    &__exit {
+        display: flex;
+        align-items: center;
+        & p {
+            margin-bottom: 0;
+        }
+    }
+}

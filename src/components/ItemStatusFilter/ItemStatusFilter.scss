@@ -1,0 +1,17 @@
+$bgcolor: #efefef;
+$borderColor: #ddd;
+$textColor: #337ac4;
+
+.itemStatusFilter {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: $bgcolor;
+    margin-top: 20px;
+    border: 1px solid $borderColor;
+    border-radius: 5px 5px 0 0;
+}
+
+.custom-button {
+    color: $textColor;
+}

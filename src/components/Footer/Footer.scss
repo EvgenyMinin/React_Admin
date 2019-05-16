@@ -1,0 +1,12 @@
+$bgcolor: #efefef;
+$borderColor: #ddd;
+
+.footer {
+    background-color: $bgcolor;
+    border: 1px solid $borderColor;
+    border-radius: 0 0 5px 5px;
+    padding: 10px;
+    & p {
+        margin: 5px;
+    }
+}
