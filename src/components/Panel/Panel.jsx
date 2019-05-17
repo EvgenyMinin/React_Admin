@@ -47,18 +47,18 @@ class Panel extends Component {
             </div>
                 <Modal isOpen={isOpenModalNewUser} toggle={this.toggleModalNewUser} className='panel__modalNewUser'>
                     <ModalHeader toggle={this.hideModalNewUser}>Регистрация нового клиента</ModalHeader>
-                    <ModalBody>
+                    <ModalBody className='modal__body'>
                         <p className='modal__text'>Основная информация</p>
                         <Form>
                             <div className="panel__modalItems">
                                 <FormGroup>
-                                    <InputGroup className='custom-input'>
+                                    <InputGroup className='modal__input'>
                                         <InputGroupAddon addonType='prepend'>Логин(email)</InputGroupAddon>
                                         <Input name='email' placeholder='Введите email клиента' />
                                     </InputGroup>
                                 </FormGroup>
                                 <FormGroup>
-                                    <InputGroup className='custom-input'>
+                                    <InputGroup className='modal__input'>
                                         <InputGroupAddon addonType='prepend'>Телефон</InputGroupAddon>
                                         <Input name='phone' placeholder='Введите телефон клиента'/>
                                     </InputGroup>
@@ -66,13 +66,13 @@ class Panel extends Component {
                             </div>
                             <div className="panel__modalItems">
                                 <FormGroup>
-                                    <InputGroup className='custom-input'>
+                                    <InputGroup className='modal__input'>
                                         <InputGroupAddon addonType='prepend'>Пароль</InputGroupAddon>
                                         <Input name='password' type='password' placeholder='Придумайте пароль' />
                                     </InputGroup>
                                 </FormGroup>
                                 <FormGroup>
-                                    <InputGroup className='custom-input'>
+                                    <InputGroup className='modal__input'>
                                         <InputGroupAddon addonType='prepend'>Тип заведения</InputGroupAddon>
                                         <Input name='select' type='select'>
                                             <option>Кафе</option>
