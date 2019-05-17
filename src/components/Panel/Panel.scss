@@ -27,4 +27,25 @@ $panelTextColor: #9d9d9d;
             margin-bottom: 0;
         }
     }
+    &__button {
+        cursor: pointer;
+    }
+    &__modalNewUser {
+        min-width: 900px;
+    }
+    &__modalItems {
+        display: flex;
+        justify-content: space-between;
+        &--label {
+            font-size: 2em;
+        }
+    }
+}
+
+.modal__text {
+    font-size: 1.2em;
+}
+
+.custom-input {
+    width: 420px;
 }

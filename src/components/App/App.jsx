@@ -3,7 +3,7 @@ import Panel from './../Panel';
 import ItemStatusFilter from '../ItemStatusFilter';
 import Table from './../Table';
 import Footer from './../Footer';
-import { createUsers, getInitialUsers } from '../../helpers/users';
+import { createUser, getInitialUsers } from '../../helpers/users';
 import './App.scss';
 
 class App extends Component {
@@ -12,14 +12,28 @@ class App extends Component {
         users: getInitialUsers(),
     }
 
+    handleCreateNewUser = (email) => {
+        const newUser = createUser(email);
+        this.setState(({users}) => {
+            const newUsers = [
+                ...users,
+                newUser
+            ];
+            return {
+                users: newUsers
+            }
+        })
+    }
+
     render() {
         const { users } = this.state;
+        const usersCount = users.length;
         return (
             <div className="container">
-                <Panel />
+                <Panel createNewUser={this.handleCreateNewUser} />
                 <ItemStatusFilter />
                 <Table users={users}/>
-                <Footer />
+                <Footer usersCount={usersCount}/>
             </div>
         );
     }

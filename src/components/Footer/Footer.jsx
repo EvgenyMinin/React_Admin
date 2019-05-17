@@ -2,10 +2,10 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Footer.scss';
 
-const Footer = () => {
+const Footer = ({usersCount}) => {
     return (
         <div className="footer">
-            <p>Всего клиентов: 5</p>
+            <p>Всего клиентов: {usersCount}</p>
             <p>Заблокированных пользователей: 0</p>
         </div>
     );
