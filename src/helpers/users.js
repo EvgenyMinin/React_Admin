@@ -1,13 +1,16 @@
 let maxId = 1;
 
-const createUser = (email, status = 'Активен', type = 'Клиент', subpay = 0, balance = 0) => {
+const createUser = (email, status = 'Активен', type = 'Клиент', subpay = 0, balance = 0, phone, password, business) => {
     return {
         id: maxId++,
         email,
         status,
         type,
         subpay,
-        balance
+        balance,
+        phone,
+        password,
+        business
     }
 };
 

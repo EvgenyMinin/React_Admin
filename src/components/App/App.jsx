@@ -12,8 +12,8 @@ class App extends Component {
         users: getInitialUsers(),
     }
 
-    handleCreateNewUser = (email) => {
-        const newUser = createUser(email);
+    handleCreateNewUser = (email, status, phone, password, business) => {
+        const newUser = createUser(email, status, phone, password, business);
         const users = [...this.state.users, newUser]
         this.setState({
             users

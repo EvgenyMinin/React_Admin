@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Joi from 'joi-browser';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, InputGroup, InputGroupAddon, Input } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Panel.scss';
@@ -8,10 +9,44 @@ class Panel extends Component {
         isOpenModalNewUser: false,
         userData: {
             email: '',
+            status: 'Активен',
+            type: 'Клиент',
+            subpay: 0,
+            balance: 0,
             phone: '',
             password: '',
-            business: ''
+            business: 'Кафе'
+        },
+        errors: {}
+    }
+
+    schema = {
+        email: Joi.string().email({minDomainSegments: 2}).required(),
+        status: Joi.string(),
+        type: Joi.string(),
+        subpay: Joi.number(),
+        balance: Joi.number(),
+        phone: Joi.string().min(11).required(),
+        password: Joi.string().min(8).required(),
+        business: Joi.string().required()
+    }
+
+    validate = () => {
+        const options = { abortEarly: false };
+        const { error } = Joi.validate(this.state.userData, this.schema, options);
+        if (!error) return null;
+        const errors = {};
+        for (let item of error.details) {
+            errors[item.path[0]] = item.message;
         }
+        return errors;
+    }
+
+    validateProperty = ({ name, value }) => {
+        const obj = { [name]:value };
+        const schema = { [name]:this.schema[name] };
+        const { error } = Joi.validate(obj, schema);
+        return error ? error.details[0].message : null;
     }
 
     toggleModalNewUser = () => {
@@ -33,21 +68,37 @@ class Panel extends Component {
     }
 
     handleChange = ({currentTarget: input}) => {
+
+        const errors = {...this.state.errors};
+        const errorMessage = this.validateProperty(input);
+        if (errorMessage) {
+            errors[input.name] = errorMessage;
+        } else {
+            delete errors[input.name]
+        }
+
         const userData = {...this.state.userData};
         userData[input.name] = input.value;
         this.setState({
-            userData
+            userData,
+            errors
         })
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.createNewUser(this.state.userData.email)
+        const errors = this.validate();
+        const { email, status, type, subpay, balance, phone, password, business } = this.state.userData;
+        this.props.createNewUser(email, status, type, subpay, balance, phone, password, business);
+        this.setState({
+            errors: errors || {}
+        });
+        if (errors) return;
     }
 
     render() {
         const { users } = this.props;
-        const { isOpenModalNewUser } = this.state;
+        const { isOpenModalNewUser, errors } = this.state;
         const click = (event) => {
             this.handleSubmit(event);
             this.toggleModalNewUser();
@@ -81,8 +132,10 @@ class Panel extends Component {
                                             name='email'
                                             placeholder='Введите email клиента'
                                             onChange={this.handleChange}
+                                            error={errors.email}
                                         />
                                     </InputGroup>
+                                    {errors.email && <div className='alert alert-danger'>{errors.email}</div>}
                                 </FormGroup>
                                 <FormGroup>
                                     <InputGroup className='modal__input'>
@@ -90,8 +143,11 @@ class Panel extends Component {
                                         <Input
                                             name='phone'
                                             placeholder='Введите телефон клиента'
+                                            onChange={this.handleChange}
+                                            error={errors.phone}
                                         />
                                     </InputGroup>
+                                    {errors.phone && <div className='alert alert-danger'>{errors.phone}</div>}
                                 </FormGroup>
                             </div>
                             <div className="panel__modalItems">
@@ -102,8 +158,11 @@ class Panel extends Component {
                                             name='password'
                                             type='password'
                                             placeholder='Придумайте пароль'
+                                            onChange={this.handleChange}
+                                            error={errors.password}
                                         />
                                     </InputGroup>
+                                    {errors.password && <div className='alert alert-danger'>{errors.password}</div>}
                                 </FormGroup>
                                 <FormGroup>
                                     <InputGroup className='modal__input'>
@@ -111,6 +170,7 @@ class Panel extends Component {
                                         <Input
                                             name='business'
                                             type='select'
+                                            onChange={this.handleChange}
                                         >
                                             <option>Кафе</option>
                                             <option>Ресторан</option>
@@ -122,7 +182,7 @@ class Panel extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={click}>Сохранить</Button>
+                        <Button color="primary" disabled={!!this.validate()} onClick={click}>Сохранить</Button>
                         <Button color="warning" onClick={this.toggleModalNewUser}>Отмена</Button>
                     </ModalFooter>
             </Modal>
