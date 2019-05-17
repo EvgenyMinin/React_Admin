@@ -5,7 +5,13 @@ import './Panel.scss';
 
 class Panel extends Component {
     state = {
-        isOpenModalNewUser: false
+        isOpenModalNewUser: false,
+        userData: {
+            email: '',
+            phone: '',
+            password: '',
+            business: ''
+        }
     }
 
     toggleModalNewUser = () => {
@@ -26,9 +32,26 @@ class Panel extends Component {
         })
     }
 
+    handleChange = ({currentTarget: input}) => {
+        const userData = {...this.state.userData};
+        userData[input.name] = input.value;
+        this.setState({
+            userData
+        })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.createNewUser(this.state.userData.email)
+    }
+
     render() {
-        //const {createNewUser} = this.props;
+        const { users } = this.props;
         const { isOpenModalNewUser } = this.state;
+        const click = (event) => {
+            this.handleSubmit(event);
+            this.toggleModalNewUser();
+        }
         return (
             <React.Fragment>
             <div className="panel">
@@ -42,7 +65,7 @@ class Panel extends Component {
                     </p>
                 </div>
                 <div className="panel__exit">
-                    <p>Выход</p>
+                    <p>Выход{users.email}</p>
                 </div>
             </div>
                 <Modal isOpen={isOpenModalNewUser} toggle={this.toggleModalNewUser} className='panel__modalNewUser'>
@@ -54,13 +77,20 @@ class Panel extends Component {
                                 <FormGroup>
                                     <InputGroup className='modal__input'>
                                         <InputGroupAddon addonType='prepend'>Логин(email)</InputGroupAddon>
-                                        <Input name='email' placeholder='Введите email клиента' />
+                                        <Input
+                                            name='email'
+                                            placeholder='Введите email клиента'
+                                            onChange={this.handleChange}
+                                        />
                                     </InputGroup>
                                 </FormGroup>
                                 <FormGroup>
                                     <InputGroup className='modal__input'>
                                         <InputGroupAddon addonType='prepend'>Телефон</InputGroupAddon>
-                                        <Input name='phone' placeholder='Введите телефон клиента'/>
+                                        <Input
+                                            name='phone'
+                                            placeholder='Введите телефон клиента'
+                                        />
                                     </InputGroup>
                                 </FormGroup>
                             </div>
@@ -68,13 +98,20 @@ class Panel extends Component {
                                 <FormGroup>
                                     <InputGroup className='modal__input'>
                                         <InputGroupAddon addonType='prepend'>Пароль</InputGroupAddon>
-                                        <Input name='password' type='password' placeholder='Придумайте пароль' />
+                                        <Input
+                                            name='password'
+                                            type='password'
+                                            placeholder='Придумайте пароль'
+                                        />
                                     </InputGroup>
                                 </FormGroup>
                                 <FormGroup>
                                     <InputGroup className='modal__input'>
                                         <InputGroupAddon addonType='prepend'>Тип заведения</InputGroupAddon>
-                                        <Input name='select' type='select'>
+                                        <Input
+                                            name='business'
+                                            type='select'
+                                        >
                                             <option>Кафе</option>
                                             <option>Ресторан</option>
                                             <option>Бар</option>
@@ -85,7 +122,7 @@ class Panel extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleModalNewUser}>Сохранить</Button>
+                        <Button color="primary" onClick={click}>Сохранить</Button>
                         <Button color="warning" onClick={this.toggleModalNewUser}>Отмена</Button>
                     </ModalFooter>
             </Modal>

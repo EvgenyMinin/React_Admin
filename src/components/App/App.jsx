@@ -14,14 +14,9 @@ class App extends Component {
 
     handleCreateNewUser = (email) => {
         const newUser = createUser(email);
-        this.setState(({users}) => {
-            const newUsers = [
-                ...users,
-                newUser
-            ];
-            return {
-                users: newUsers
-            }
+        const users = [...this.state.users, newUser]
+        this.setState({
+            users
         })
     }
 
@@ -30,7 +25,10 @@ class App extends Component {
         const usersCount = users.length;
         return (
             <div className="container">
-                <Panel createNewUser={this.handleCreateNewUser} />
+                <Panel
+                    users={users}
+                    createNewUser={this.handleCreateNewUser} 
+                />
                 <ItemStatusFilter />
                 <Table users={users}/>
                 <Footer usersCount={usersCount}/>
