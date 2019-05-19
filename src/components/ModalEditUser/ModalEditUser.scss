@@ -1,0 +1,18 @@
+.modalEditUser{
+    min-width: 900px;
+    &__input {
+        width: 415px;
+    }
+    &__text {
+        margin-top: 25px;
+        font-size: 1.2em;
+    }
+    &__body {
+        margin: 0 0 25px 0;
+    }
+}
+
+.modalItems {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,5 +1,6 @@
 $borderColor: #ddd;
 $bgcolorBlockUser: #f2dede;
+$colorTextUser: #337ac4;
 
 .custom-table {
     border: 1px solid $borderColor;
@@ -12,4 +13,9 @@ thead > tr > th {
 
 .block {
     background-color: $bgcolorBlockUser;
+}
+
+.table__user {
+    cursor: pointer;
+    color: $colorTextUser;
 }
