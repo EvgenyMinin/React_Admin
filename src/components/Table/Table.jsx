@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Table.scss';
 
-const Table = ({ users }) => {
+const Table = ({ users, onSort, sortField, order }) => {
     const elements = users.map(user => {
         return (
             <tr key={user.id}>
@@ -19,12 +19,24 @@ const Table = ({ users }) => {
         <table className='table table-sm custom-table'>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Клиент</th>
-                    <th>Статус</th>
-                    <th>Тип</th>
-                    <th>Абон. плата</th>
-                    <th>Баланс</th>
+                    <th onClick={() => onSort('id')}>
+                        ID {sortField === 'id' && <small>{ order === 'asc' ? '↓' : '↑' }</small>}
+                    </th>
+                    <th onClick={() => onSort('email')}>
+                        Клиент {sortField === 'email' && <small>{ order === 'asc' ? '↓' : '↑' }</small>}
+                    </th>
+                    <th onClick={() => onSort('status')}>
+                        Статус {sortField === 'status' && <small>{ order === 'asc' ? '↓' : '↑' }</small>}
+                    </th>
+                    <th onClick={() => onSort('type')}>
+                        Тип {sortField === 'type' && <small>{ order === 'asc' ? '↓' : '↑' }</small>}
+                    </th> 
+                    <th onClick={() => onSort('subpay')}>
+                        Абон. плата {sortField === 'subpay' && <small>{ order === 'asc' ? '↓' : '↑' }</small>}
+                    </th>
+                    <th onClick={() => onSort('balance')}>
+                        Баланс {sortField === 'balance' && <small>{ order === 'asc' ? '↓' : '↑' }</small>}
+                    </th>
                 </tr>
             </thead>
             <tbody>

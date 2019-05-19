@@ -4,3 +4,7 @@ $borderColor: #ddd;
     border: 1px solid $borderColor;
     margin-bottom: 0;
 }
+
+thead > tr > th {
+    cursor: pointer;
+}
