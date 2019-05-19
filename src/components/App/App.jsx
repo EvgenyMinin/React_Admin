@@ -12,7 +12,8 @@ class App extends Component {
     state = {
         users: getInitialUsers(),
         sortField: 'id',
-        order: 'asc'
+        order: 'asc',
+        selectFilter: 'all'
     }
 
     componentDidMount() {
@@ -33,6 +34,12 @@ class App extends Component {
         })
     }
 
+    handleChangeFilter = (selectFilter) => {
+        this.setState({
+            selectFilter
+        });
+    }
+
     handleCreateNewUser = (email, status, phone, password, business) => {
         const newUser = createUser(email, status, phone, password, business);
         const users = [...this.state.users, newUser]
@@ -41,18 +48,35 @@ class App extends Component {
         })
     }
 
+    getFilteredUsers = (users, selectFilter) => {
+        switch(selectFilter) {
+            case 'all':
+                return users;
+            case 'block':
+                return users.filter(user => user.isBlock);
+            case 'active':
+                return users.filter(user => !user.isBlock);
+            default:
+                return users;
+        }
+    }
+
     render() {
-        const { users, sortField, order } = this.state;
+        const { users, sortField, order, selectFilter } = this.state;
         const usersCount = users.length;
+        const visibleUsers = this.getFilteredUsers(users, selectFilter);
         return (
             <div className="container">
                 <Panel
                     users={users}
                     createNewUser={this.handleCreateNewUser} 
                 />
-                <ItemStatusFilter />
+                <ItemStatusFilter
+                    getFilteredUsers={selectFilter}
+                    changeFilter={this.handleChangeFilter}
+                />
                 <Table
-                    users={users}
+                    users={visibleUsers}
                     onSort={this.handleSort}
                     sortField={sortField}
                     order={order}

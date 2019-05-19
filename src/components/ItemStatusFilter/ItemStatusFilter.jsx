@@ -9,11 +9,15 @@ class ItemStatusFilter extends Component {
         { name: 'active', label: 'Показать только активных' },
     ];
     render() {
+        const { getFilteredUsers, changeFilter } = this.props;
         const buttons = this.buttons.map( ({name, label}) => {
+            const isActive = getFilteredUsers === name;
+            const className = isActive ? 'active' : '';
             return (
                 <button
                     key={name}
-                    className='btn custom-button'
+                    className={`btn custom-button ${className}`}
+                    onClick={ () => changeFilter(name)}
                 >
                     {label}
                 </button>

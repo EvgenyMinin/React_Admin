@@ -1,6 +1,7 @@
 $bgcolor: #efefef;
 $borderColor: #ddd;
 $textColor: #337ac4;
+$buttonColor: #c7ddef;
 
 .itemStatusFilter {
     display: flex;
@@ -8,10 +9,16 @@ $textColor: #337ac4;
     width: 100%;
     background-color: $bgcolor;
     margin-top: 20px;
+    padding: 10px 20px;
     border: 1px solid $borderColor;
     border-radius: 5px 5px 0 0;
 }
 
 .custom-button {
     color: $textColor;
+    padding: 5px 0;
+}
+
+.active {
+    background-color: $buttonColor;
 }
