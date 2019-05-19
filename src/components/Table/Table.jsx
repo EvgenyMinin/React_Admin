@@ -4,11 +4,14 @@ import './Table.scss';
 
 const Table = ({ users, onSort, sortField, order }) => {
     const elements = users.map(user => {
+        const isBlock = user.isBlock;
+        let className = '';
+        if (isBlock) className += ' block';
         return (
-            <tr key={user.id}>
+            <tr key={user.id} className={className}>
                 <td>{user.id}</td>
                 <td>{user.email}</td>
-                <td>{user.status}</td>
+                <td>{user.isBlock ? 'Заблокирован' : 'Активен'}</td>
                 <td>{user.type}</td>
                 <td>{user.subpay}</td>
                 <td>{user.balance}</td>

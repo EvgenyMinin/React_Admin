@@ -1,4 +1,5 @@
 $borderColor: #ddd;
+$bgcolorBlockUser: #f2dede;
 
 .custom-table {
     border: 1px solid $borderColor;
@@ -7,4 +8,8 @@ $borderColor: #ddd;
 
 thead > tr > th {
     cursor: pointer;
+}
+
+.block {
+    background-color: $bgcolorBlockUser;
 }

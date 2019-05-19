@@ -63,6 +63,7 @@ class App extends Component {
 
     render() {
         const { users, sortField, order, selectFilter } = this.state;
+        const blockUsersCount = users.filter(user => user.isBlock).length;
         const usersCount = users.length;
         const visibleUsers = this.getFilteredUsers(users, selectFilter);
         return (
@@ -81,7 +82,10 @@ class App extends Component {
                     sortField={sortField}
                     order={order}
                 />
-                <Footer usersCount={usersCount}/>
+                <Footer
+                    usersCount={usersCount}
+                    blockUsersCount={blockUsersCount}
+                />
             </div>
         );
     }

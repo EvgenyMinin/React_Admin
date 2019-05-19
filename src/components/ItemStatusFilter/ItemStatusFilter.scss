@@ -2,6 +2,7 @@ $bgcolor: #efefef;
 $borderColor: #ddd;
 $textColor: #337ac4;
 $buttonColor: #c7ddef;
+$buttonHoverColor: #ccc;
 
 .itemStatusFilter {
     display: flex;
@@ -17,6 +18,10 @@ $buttonColor: #c7ddef;
 .custom-button {
     color: $textColor;
     padding: 5px 0;
+    &:hover {
+        background-color: $buttonHoverColor;
+        color: $textColor;
+    }
 }
 
 .active {
