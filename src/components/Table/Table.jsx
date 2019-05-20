@@ -7,8 +7,7 @@ class Table extends Component {
 
     state = {
         isOpenModalEditUser: false,
-        currentUserId: null,
-        status: 'Активен'
+        currentUser: {}
     }
 
     toggleModalEditUser = () => {
@@ -19,14 +18,14 @@ class Table extends Component {
 
     handleClickUser = (user) => {
         this.setState({
-            currentUserId: user.id,
+            currentUser: user,
             isOpenModalEditUser: true
         })
     }
 
     render() {
         const { users, onSort, sortField, order } = this.props;
-        const { isOpenModalEditUser, currentUserId } = this.state;
+        const { isOpenModalEditUser, currentUser } = this.state;
         const elements = users.map(user => {
             const isBlock = user.isBlock;
             let className = '';
@@ -77,7 +76,7 @@ class Table extends Component {
                     </tbody>
                 </table>
                 <ModalEditUser
-                    currentUserId={currentUserId}
+                    currentUser={currentUser}
                     isOpenModalEditUser={isOpenModalEditUser}
                     toggleModalEditUser={this.toggleModalEditUser}
                     changeStatus={this.handleChangeStatus}

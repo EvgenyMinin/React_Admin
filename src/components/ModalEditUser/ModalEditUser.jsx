@@ -3,9 +3,17 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, In
 import './ModalEditUser.scss';
 
 const ModalEditUser = ({
-    currentUserId,
     isOpenModalEditUser,
-    toggleModalEditUser
+    toggleModalEditUser,
+    currentUser : {
+        email,
+        phone,
+        password,
+        business,
+        managerName,
+        managerPhone,
+        managerEmail
+    }
 }) => {
     return (
         <Modal isOpen={isOpenModalEditUser} toggle={toggleModalEditUser} className='modalEditUser'>
@@ -20,7 +28,7 @@ const ModalEditUser = ({
                                 <Input
                                     disabled
                                     name='email'
-                                    placeholder={currentUserId}
+                                    value={email}
                                 />
                             </InputGroup>
                         </FormGroup>
@@ -29,7 +37,7 @@ const ModalEditUser = ({
                                 <InputGroupAddon addonType='prepend'>Телефон</InputGroupAddon>
                                 <Input
                                     name='phone'
-                                    placeholder='2131312131'
+                                    value={phone}
                                 />
                             </InputGroup>
                         </FormGroup>
@@ -41,7 +49,7 @@ const ModalEditUser = ({
                                 <Input
                                     name='password'
                                     type='password'
-                                    placeholder='qwertyyyy'
+                                    value={password}
                                 />
                             </InputGroup>
                         </FormGroup>
@@ -63,8 +71,8 @@ const ModalEditUser = ({
                         <InputGroup className='modalEditUser__input'>
                             <InputGroupAddon addonType='prepend'>Название организации</InputGroupAddon>
                             <Input
-                                name='type'
-                                placeholder='Ресторан'
+                                name='business'
+                                value={business}
                             />
                         </InputGroup>
                     </FormGroup>
@@ -73,7 +81,7 @@ const ModalEditUser = ({
                             <InputGroupAddon addonType='prepend'>ФИО руководителя</InputGroupAddon>
                             <Input
                                 name='managerName'
-                                placeholder='Иванов Иван Иванович'
+                                value={managerName}
                             />
                         </InputGroup>
                     </FormGroup>
@@ -82,7 +90,7 @@ const ModalEditUser = ({
                             <InputGroupAddon addonType='prepend'>Телефон руководителя</InputGroupAddon>
                             <Input
                                 name='managerPhone'
-                                placeholder='89115554433'
+                                value={managerPhone}
                             />
                         </InputGroup>
                     </FormGroup>
@@ -91,7 +99,7 @@ const ModalEditUser = ({
                             <InputGroupAddon addonType='prepend'>Email руководителя</InputGroupAddon>
                             <Input
                                 name='managerEmail'
-                                placeholder='manager@mail.ru'
+                                value={managerEmail}
                             />
                         </InputGroup>
                     </FormGroup>

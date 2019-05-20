@@ -3,7 +3,7 @@ import Panel from './../Panel';
 import ItemStatusFilter from '../ItemStatusFilter';
 import Table from './../Table';
 import Footer from './../Footer';
-import { createUser, getInitialUsers } from '../../helpers/users';
+import { createUser, getInitialUsers, saveUsersToLS } from '../../helpers/users';
 import _ from 'lodash';
 import './App.scss';
 
@@ -40,9 +40,10 @@ class App extends Component {
         });
     }
 
-    handleCreateNewUser = (email, status, phone, password, business) => {
-        const newUser = createUser(email, status, phone, password, business);
-        const users = [...this.state.users, newUser]
+    handleCreateNewUser = (email, status, type, subpay, balance, phone, password, business) => {
+        const newUser = createUser(email, status, type, subpay, balance, phone, password, business);
+        const users = [...this.state.users, newUser];
+        saveUsersToLS(users);
         this.setState({
             users
         })
