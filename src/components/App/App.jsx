@@ -43,10 +43,10 @@ class App extends Component {
     handleCreateNewUser = (email, status, type, subpay, balance, phone, password, business) => {
         const newUser = createUser(email, status, type, subpay, balance, phone, password, business);
         const users = [...this.state.users, newUser];
-        saveUsersToLS(users);
         this.setState({
             users
-        })
+        });
+        saveUsersToLS(users);
     }
 
     getFilteredUsers = (users, selectFilter) => {
@@ -54,17 +54,24 @@ class App extends Component {
             case 'all':
                 return users;
             case 'block':
-                return users.filter(user => user.isBlock);
+                return users.filter(user => user.status === "Заблокирован");
             case 'active':
-                return users.filter(user => !user.isBlock);
+                return users.filter(user => user.status === "Активен");
             default:
                 return users;
         }
     }
 
+    handleUpdateUsers = (users) => {
+        this.setState({
+            users
+        });
+        saveUsersToLS(users);
+    }
+
     render() {
         const { users, sortField, order, selectFilter } = this.state;
-        const blockUsersCount = users.filter(user => user.isBlock).length;
+        const blockUsersCount = users.filter(user => user.status === "Заблокирован").length;
         const usersCount = users.length;
         const visibleUsers = this.getFilteredUsers(users, selectFilter);
         return (
@@ -74,11 +81,12 @@ class App extends Component {
                     createNewUser={this.handleCreateNewUser} 
                 />
                 <ItemStatusFilter
-                    getFilteredUsers={selectFilter}
+                    selectedFilter={selectFilter}
                     changeFilter={this.handleChangeFilter}
                 />
                 <Table
                     users={visibleUsers}
+                    updateUsers={this.handleUpdateUsers}
                     onSort={this.handleSort}
                     sortField={sortField}
                     order={order}

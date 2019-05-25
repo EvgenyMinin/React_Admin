@@ -5,10 +5,13 @@ import './ModalEditUser.scss';
 const ModalEditUser = ({
     isOpenModalEditUser,
     toggleModalEditUser,
+    onChange,
+    onSubmit,
     currentUser : {
         email,
         phone,
         password,
+        status,
         business,
         managerName,
         managerPhone,
@@ -29,6 +32,7 @@ const ModalEditUser = ({
                                     disabled
                                     name='email'
                                     value={email}
+                                    onChange={onChange}
                                 />
                             </InputGroup>
                         </FormGroup>
@@ -38,6 +42,7 @@ const ModalEditUser = ({
                                 <Input
                                     name='phone'
                                     value={phone}
+                                    onChange={onChange}
                                 />
                             </InputGroup>
                         </FormGroup>
@@ -50,6 +55,7 @@ const ModalEditUser = ({
                                     name='password'
                                     type='password'
                                     value={password}
+                                    onChange={onChange}
                                 />
                             </InputGroup>
                         </FormGroup>
@@ -59,6 +65,8 @@ const ModalEditUser = ({
                                 <Input
                                     name='status'
                                     type='select'
+                                    value={status}
+                                    onChange={onChange}
                                 >
                                     <option>Активен</option>
                                     <option>Заблокирован</option>
@@ -73,6 +81,7 @@ const ModalEditUser = ({
                             <Input
                                 name='business'
                                 value={business}
+                                onChange={onChange}
                             />
                         </InputGroup>
                     </FormGroup>
@@ -82,6 +91,7 @@ const ModalEditUser = ({
                             <Input
                                 name='managerName'
                                 value={managerName}
+                                onChange={onChange}
                             />
                         </InputGroup>
                     </FormGroup>
@@ -91,6 +101,7 @@ const ModalEditUser = ({
                             <Input
                                 name='managerPhone'
                                 value={managerPhone}
+                                onChange={onChange}
                             />
                         </InputGroup>
                     </FormGroup>
@@ -100,13 +111,14 @@ const ModalEditUser = ({
                             <Input
                                 name='managerEmail'
                                 value={managerEmail}
+                                onChange={onChange}
                             />
                         </InputGroup>
                     </FormGroup>
                 </Form>
             </ModalBody>
             <ModalFooter>
-                <Button color="primary">Сохранить</Button>
+                <Button color="primary" onClick={onSubmit}>Сохранить</Button>
                 <Button color="warning" onClick={toggleModalEditUser}>Отмена</Button>
             </ModalFooter>
         </Modal>

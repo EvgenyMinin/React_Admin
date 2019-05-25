@@ -9,9 +9,9 @@ class ItemStatusFilter extends Component {
         { name: 'active', label: 'Показать только активных' },
     ];
     render() {
-        const { getFilteredUsers, changeFilter } = this.props;
+        const { selectedFilter, changeFilter } = this.props;
         const buttons = this.buttons.map( ({name, label}) => {
-            const isActive = getFilteredUsers === name;
+            const isActive = selectedFilter === name;
             const className = isActive ? 'active' : '';
             return (
                 <button

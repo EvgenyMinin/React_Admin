@@ -7,7 +7,6 @@ const createUser = (email,
     phone,
     password,
     business,
-    isBlock = false,
     managerName = '',
     managerPhone = '',
     managerEmail = '',
@@ -22,7 +21,6 @@ const createUser = (email,
         phone,
         password,
         business,
-        isBlock,
         managerName,
         managerPhone,
         managerEmail
@@ -38,10 +36,12 @@ const initialUsers = [
 ];
 
 const saveUsersToLS = users => localStorage.setItem('users', JSON.stringify(users));
-const getUsersFromLS = () => JSON.parse(localStorage.getItem('users'));
+const getUsersFromLS = () => JSON.parse(localStorage.getItem('users')) || initialUsers;
 
 const getInitialUsers = () => {
     const users = getUsersFromLS();
+    const ids = users.map(u => u.id);
+    maxId = (Math.max.apply(null, ids) || 1) + 1;
     return users ? users : initialUsers;
 };
 

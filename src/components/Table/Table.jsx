@@ -23,11 +23,30 @@ class Table extends Component {
         })
     }
 
+    handleChange = ({currentTarget: input}) => {
+        const currentUser = {...this.state.currentUser};
+        currentUser[input.name] = input.value;
+        console.log(currentUser);
+        this.setState({
+            currentUser
+        })
+    }
+
+    handleSubmit = () => {
+        const users = [...this.props.users];
+        const userIndex = users.findIndex(u => u.id === this.state.currentUser.id);
+        users[userIndex] = this.state.currentUser;
+        this.setState({
+            isOpenModalEditUser: false
+        });
+        this.props.updateUsers(users);
+    }
+
     render() {
         const { users, onSort, sortField, order } = this.props;
         const { isOpenModalEditUser, currentUser } = this.state;
         const elements = users.map(user => {
-            const isBlock = user.isBlock;
+            const isBlock = user.status === 'Заблокирован';
             let className = '';
             if (isBlock) className += ' block';
             return (
@@ -39,7 +58,7 @@ class Table extends Component {
                     >
                         {user.email}
                     </td>
-                    <td>{user.isBlock ? 'Заблокирован' : 'Активен'}</td>
+                    <td>{user.status}</td>
                     <td>{user.type}</td>
                     <td>{user.subpay}</td>
                     <td>{user.balance}</td>
@@ -77,6 +96,8 @@ class Table extends Component {
                 </table>
                 <ModalEditUser
                     currentUser={currentUser}
+                    onChange={this.handleChange}
+                    onSubmit={this.handleSubmit}
                     isOpenModalEditUser={isOpenModalEditUser}
                     toggleModalEditUser={this.toggleModalEditUser}
                     changeStatus={this.handleChangeStatus}
